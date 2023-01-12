@@ -8,16 +8,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter @Setter
 public class ContributionProductForm {
-    private Integer productId;
+    private Long productId;
     private Integer givenAmount;
 
-    public ContributionProductForm(Integer productId, Integer givenAmount) {
+    public ContributionProductForm(Long productId, Integer givenAmount) {
         this.productId = productId;
         this.givenAmount = givenAmount;
-    }
-    public ContributionProductForm(ContributionProduct cp) {
-        this.productId =cp.getId().getProductId();
-        this.givenAmount = cp.getGivenAmount();
     }
 
 }

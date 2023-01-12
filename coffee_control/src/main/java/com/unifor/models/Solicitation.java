@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 @Getter @Setter
 public class Solicitation {
-    private Integer id;
+    private Long id;
     private String name;
     private LocalDateTime solicitation_date=LocalDateTime.now();
     private LocalDateTime solicitation_expiration;

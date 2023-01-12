@@ -1,18 +1,22 @@
 package com.unifor.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
-    private Integer id;
-    private String name;
-    private String description;
-    private Integer minUserAmount;
-    private Boolean enabled;
-    private List<ContributionProduct> contributions;
-    private List<SolicitationProduct> solicitations;
+    public Long id;
+    public String name;
+    public String description;
+    public Integer minUserAmount;
+    public Boolean enabled;
+    public List<ContributionProduct> contributions;
+    public List<SolicitationProduct> solicitations;
 
 }

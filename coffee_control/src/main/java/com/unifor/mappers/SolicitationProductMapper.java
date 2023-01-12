@@ -31,4 +31,10 @@ public interface SolicitationProductMapper {
             "WHERE solicitation_id = #{id.solicitationId " +
             "AND product_id = #{id.productId}")
     Integer deleteContributionProduct(SolicitationProductId id);
+
+    @Select("""
+            SELECT EXISTS (SELECT 1 FROM solicitation_product sp 
+            WHERE sp.solicitation_id= #{solicitationId} 
+            AND sp.product_id = #{productId} )""")
+    Boolean checkIfProductExistsInSolicitation(Long solicitationId, Long productId);
 }
