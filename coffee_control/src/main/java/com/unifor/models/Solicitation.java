@@ -1,27 +1,27 @@
 package com.unifor.models;
 
 
+import com.unifor.dtos.ContributionDto;
+import com.unifor.dtos.UserDto;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Solicitation {
-    private Long id;
-    private String name;
-    private LocalDateTime solicitation_date=LocalDateTime.now();
-    private LocalDateTime solicitation_expiration;
-
-    private Boolean enabled=true;
-    private User assignedUser;
-    private List<Contribution> contributions;
-    private List<SolicitationProduct> products;
+    public Long id;
+    public String name;
+    public LocalDate solicitation_date=LocalDate.now();
+    public LocalDate solicitation_expiration;
+    public Boolean enabled=true;
+    public UserDto assignedUser;
+    public List<ContributionDto> contributions;
+    public List<Product> products;
     
 
-//    public Solicitation(SolicitationPostForm form, User user) {
-//        this.name= form.getName();
-//        this.assignedUser=user;
-//        this.solicitation_expiration = this.solicitation_date.plusDays(getSolicitation_date().getMonth().maxLength());
-//    }
 }

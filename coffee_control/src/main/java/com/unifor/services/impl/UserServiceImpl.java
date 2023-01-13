@@ -5,7 +5,6 @@ import com.unifor.forms.ContributionPostForm;
 import com.unifor.forms.UserPostForm;
 import com.unifor.mappers.ProfileMapper;
 import com.unifor.mappers.SolicitationMapper;
-import com.unifor.mappers.SolicitationProductMapper;
 import com.unifor.mappers.UserMapper;
 import com.unifor.models.*;
 import com.unifor.services.UserService;
@@ -26,9 +25,6 @@ public class UserServiceImpl implements UserService {
     @Inject
     SolicitationMapper solicitationMapper;
 
-    @Inject
-    SolicitationProductMapper solicitationProductMapper;
-
     public List<UserDto> list(){
 //        List<UserDto> users = null;
 //        System.out.print(userMapper.getUsers());
@@ -41,24 +37,13 @@ public class UserServiceImpl implements UserService {
     }
 
     public User register(UserPostForm form){
-        Profile profile = profileMapper.getProfile(form.getProfile_type());
+        Profile profile = profileMapper.getProfile(form.getProfile_id());
         userMapper.saveUser(form.getName(), form.getRegistration(), form.getPassword(), profile.getId());
-        return new User(form.getName(), form.getRegistration(), form.getPassword(), profile);
+        return new User(form.getName(), form.getRegistration(), form.getPassword(), profileMapper.getProfile(form.getProfile_id()));
     }
 
     public void newContribution(Long id, ContributionPostForm form){
-        Solicitation solicitation = solicitationMapper.getSolicitation(form.getSolicitationId());
-//        User user = userMapper.getUser(id);
-//        Contribution contribution = new Contribution(user, solicitation);
-//        for(ContributionProductForm current : form.getProducts()) {
-//            contribution.setProducts(contribution.getProducts() == null ? new ArrayList<ContributionProduct>() : contribution.getProducts());
-//            Long productId= Long.valueOf(current.getProductId());
-//            Integer givenAmount=current.getGivenAmount();
-//            if(!solicitationProductMapper.checkIfProductExistsInSolicitation(solicitation.getId(), productId)){
-//                continue;
-//            }
-//        }
-
+        //....
     }
 
     @Override

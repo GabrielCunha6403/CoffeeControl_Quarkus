@@ -1,6 +1,5 @@
 package com.unifor.forms;
 
-import com.unifor.models.ContributionProduct;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

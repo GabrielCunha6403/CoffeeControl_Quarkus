@@ -10,9 +10,4 @@ public class Storage {
     private Integer currentAmount=0;
     private Integer minAmount=0;
 
-//    public Storage(Product p, ProductPostForm form) {
-//        this.product = p;
-//        this.minAmount=form.getMinAmount();
-//        this.currentAmount = form.getCurrentAmount();
-//    }
 }

@@ -2,12 +2,7 @@ package com.unifor.services.impl;
 
 import com.unifor.dtos.ContributionDto;
 import com.unifor.forms.ContributionPostForm;
-import com.unifor.mappers.ContributionMapper;
-import com.unifor.mappers.ProfileMapper;
-import com.unifor.mappers.SolicitationMapper;
-import com.unifor.mappers.UserMapper;
-import com.unifor.models.Solicitation;
-import com.unifor.models.User;
+import com.unifor.mappers.*;
 import com.unifor.services.ContributionService;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -29,6 +24,9 @@ public class ContributionServiceImpl implements ContributionService {
     @Inject
     SolicitationMapper solicitationMapper;
 
+    @Inject
+    ContributionProductMapper contributionProductMapper;
+
     public List<ContributionDto> list(){
         return contributionMapper.getContributions();
     }
@@ -39,8 +37,20 @@ public class ContributionServiceImpl implements ContributionService {
     }
 
     @Override
-    public void saveContribution(ContributionPostForm form) {
-        User user = userMapper.getUser(form.user_id).convert(profileMapper);
-        Solicitation solicitation = solicitationMapper.getSolicitation(form.solicitation_id);
+    public ContributionDto saveContribution(ContributionPostForm form, Long id) {
+        contributionMapper.saveContribution(LocalDate.now(), form.user_id, form.solicitation_id);
+        form.products.forEach(product -> {
+            contributionProductMapper.saveContributionProduct(
+                    contributionMapper.getLastContribution().id,
+                    product.getProductId(),
+                    product.getGivenAmount()
+            );
+
+            product.getProductId();
+
+        });
+
+        return contributionMapper.getLastContribution();
+
     }
 }

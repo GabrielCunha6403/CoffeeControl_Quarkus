@@ -1,6 +1,7 @@
 package com.unifor.dtos;
 
 import com.unifor.mappers.ProfileMapper;
+import com.unifor.mappers.UserMapper;
 import com.unifor.models.User;
 import lombok.AllArgsConstructor;
 
@@ -20,7 +21,14 @@ public class UserDto {
         this.profile_id = u.profile.getId();
     }
 
-    public User convert(ProfileMapper profileMapper){
-        return new User(this.name, this.registration, this.password, profileMapper.getProfile(this.profile_id));
+    public User convert(UserMapper mapper, ProfileMapper profileMapper){
+        return new User(
+                this.id,
+                this.name,
+                this.registration,
+                this.password,
+                mapper.getListOfSolicitations(this.id),
+                mapper.getListOfContributions(this.id),
+                profileMapper.getProfile(this.profile_id));
     }
 }

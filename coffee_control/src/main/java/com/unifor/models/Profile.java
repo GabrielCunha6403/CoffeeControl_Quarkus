@@ -1,6 +1,7 @@
 package com.unifor.models;
 
 
+import com.unifor.dtos.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,5 +16,5 @@ public class Profile {
     private Long id;
     private String name;
     private String description;
-    private List<User> users;
+    private List<UserDto> users;
 }

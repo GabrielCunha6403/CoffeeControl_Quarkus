@@ -1,6 +1,9 @@
 package com.unifor.mappers;
 
+import com.unifor.dtos.ContributionDto;
+import com.unifor.dtos.SolicitationDto;
 import com.unifor.dtos.UserDto;
+import com.unifor.models.Solicitation;
 import com.unifor.models.User;
 import org.apache.ibatis.annotations.*;
 
@@ -9,13 +12,6 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     @Select("SELECT * FROM users")
-//    @Results(value = {
-//            @Result(property = "id", column = "id"),
-//            @Result(property = "name", column = "full_name"),
-//            @Result(property = "registration", column = "registration"),
-//            @Result(property = "password", column = "pword"),
-//            @Result(property = "profile_id", column = "profile_id")
-//    })
     List<UserDto> getUsers();
 
     @Select("SELECT * FROM users WHERE id = #{id}")
@@ -26,5 +22,16 @@ public interface UserMapper {
 
     @Delete("DELETE FROM users WHERE id = #{id}")
     Integer deleteUser(Long id);
+
+    @Select("select s.* from solicitations s " +
+            "join users u on s.assigned_user_id = u.id " +
+            "where assigned_user_id = #{id}")
+    List<SolicitationDto> getListOfSolicitations(Long id);
+
+    @Select("select c.* from contributions c " +
+            "join users u on c.user_id = u.id " +
+            "where user_id = #{id}")
+    List<ContributionDto> getListOfContributions(Long id);
+
 }
 

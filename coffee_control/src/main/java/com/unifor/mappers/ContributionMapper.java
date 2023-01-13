@@ -1,6 +1,7 @@
 package com.unifor.mappers;
 
 import com.unifor.dtos.ContributionDto;
+import com.unifor.dtos.SolicitationDto;
 import com.unifor.models.Contribution;
 import com.unifor.models.Product;
 import org.apache.ibatis.annotations.*;
@@ -22,4 +23,13 @@ public interface ContributionMapper {
 
     @Delete("DELETE FROM contributions WHERE id = #{id}")
     Integer deleteContribution(Long id);
+
+    @Select("select p.* from products p " +
+            "join contribution_product cp on p.id = cp.product_id " +
+            "join contributions c on c.id = cp.contribution_id " +
+            "where c.id = #{id}")
+    List<Product> getListOfProducts(Long id);
+
+    @Select("SELECT * FROM contributions WHERE id=(SELECT max(id) FROM contributions)")
+    ContributionDto getLastContribution();
 }

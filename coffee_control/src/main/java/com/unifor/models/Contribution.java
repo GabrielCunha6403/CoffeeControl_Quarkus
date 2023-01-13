@@ -1,5 +1,7 @@
 package com.unifor.models;
 
+import com.unifor.dtos.SolicitationDto;
+import com.unifor.dtos.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,13 +17,8 @@ import java.util.List;
 public class Contribution {
     public Long id;
     public LocalDate contributionDate=LocalDate.now();
-    public User user;
-    public Solicitation solicitation;
-    public List<ContributionProduct> products;
+    public UserDto user;
+    public SolicitationDto solicitation;
+    public List<Product> products;
 
-
-    public Contribution(User user, Solicitation solicitation) {
-        this.user=user;
-        this.solicitation=solicitation;
-    }
 }

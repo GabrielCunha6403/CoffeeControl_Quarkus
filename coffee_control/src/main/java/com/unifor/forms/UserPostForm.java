@@ -8,6 +8,6 @@ public class UserPostForm {
     private String name;
     private String registration;
     private String password;
-    private String profile_type;
+    private Long profile_id;
 
 }

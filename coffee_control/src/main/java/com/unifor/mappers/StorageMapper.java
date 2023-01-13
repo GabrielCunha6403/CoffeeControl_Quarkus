@@ -33,4 +33,7 @@ public interface StorageMapper {
 
     @Delete("DELETE FROM product_storage WHERE id = #{id}")
     Integer deleteStorage(Long id);
+
+    @Update("UPDATE product_storage SET current_amount = #{new_amount} WHERE id = #{id}")
+    Integer updateAmount(Long id, Integer new_amount);
 }

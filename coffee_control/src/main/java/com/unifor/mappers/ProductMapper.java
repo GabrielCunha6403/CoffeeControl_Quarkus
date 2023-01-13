@@ -19,4 +19,5 @@ public interface ProductMapper {
 
     @Delete("DELETE FROM products WHERE id = #{id}")
     Integer deleteProduct(Long id);
+
 }

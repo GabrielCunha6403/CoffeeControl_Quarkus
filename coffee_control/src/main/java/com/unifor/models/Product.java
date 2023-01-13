@@ -16,7 +16,5 @@ public class Product {
     public String description;
     public Integer minUserAmount;
     public Boolean enabled;
-    public List<ContributionProduct> contributions;
-    public List<SolicitationProduct> solicitations;
 
 }
