@@ -1,5 +1,6 @@
 package com.unifor.mappers;
 
+import com.unifor.dtos.StorageDto;
 import com.unifor.models.Solicitation;
 import com.unifor.models.Storage;
 import org.apache.ibatis.annotations.*;
@@ -11,10 +12,10 @@ import java.util.List;
 public interface StorageMapper {
 
     @Select("SELECT * FROM product_storage")
-    List<Storage> getStorages();
+    List<StorageDto> getStorages();
 
-    @Select("SELECT * FROM product_storage WHERE id = #{id}")
-    Storage getStorage(Long id);
+    @Select("SELECT * FROM product_storage WHERE product_id = #{product_id}")
+    StorageDto getStorageByProductId(Long product_id);
 
     @Insert("INSERT INTO product_storage (id, " +
             "product_id, " +
@@ -34,6 +35,6 @@ public interface StorageMapper {
     @Delete("DELETE FROM product_storage WHERE id = #{id}")
     Integer deleteStorage(Long id);
 
-    @Update("UPDATE product_storage SET current_amount = #{new_amount} WHERE id = #{id}")
-    Integer updateAmount(Long id, Integer new_amount);
+    @Update("UPDATE product_storage SET current_amount = #{new_amount} WHERE product_id = #{product_id}")
+    Integer updateAmountByProductId(Long product_id, Integer new_amount);
 }

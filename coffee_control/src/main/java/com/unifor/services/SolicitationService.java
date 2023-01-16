@@ -11,5 +11,5 @@ public interface SolicitationService {
 
     SolicitationDto getSpecificSolicitation(Long id);
 
-    SolicitationDto saveSolicitation(Long id, SolicitationPostForm form);
+    SolicitationDto saveSolicitation(SolicitationPostForm form);
 }

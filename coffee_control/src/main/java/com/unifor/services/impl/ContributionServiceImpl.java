@@ -1,6 +1,8 @@
 package com.unifor.services.impl;
 
 import com.unifor.dtos.ContributionDto;
+import com.unifor.dtos.ProductDto;
+import com.unifor.dtos.StorageDto;
 import com.unifor.forms.ContributionPostForm;
 import com.unifor.mappers.*;
 import com.unifor.services.ContributionService;
@@ -16,13 +18,10 @@ public class ContributionServiceImpl implements ContributionService {
     ContributionMapper contributionMapper;
 
     @Inject
-    UserMapper userMapper;
+    StorageMapper storageMapper;
 
     @Inject
-    ProfileMapper profileMapper;
-
-    @Inject
-    SolicitationMapper solicitationMapper;
+    ProductMapper productMapper;
 
     @Inject
     ContributionProductMapper contributionProductMapper;
@@ -37,18 +36,27 @@ public class ContributionServiceImpl implements ContributionService {
     }
 
     @Override
-    public ContributionDto saveContribution(ContributionPostForm form, Long id) {
+    public ContributionDto saveContribution(ContributionPostForm form) {
+
         contributionMapper.saveContribution(LocalDate.now(), form.user_id, form.solicitation_id);
-        form.products.forEach(product -> {
-            contributionProductMapper.saveContributionProduct(
-                    contributionMapper.getLastContribution().id,
-                    product.getProductId(),
-                    product.getGivenAmount()
+        for (int i = 0; i < form.products.size(); i++){
+
+            StorageDto storageDto = storageMapper.getStorageByProductId(form.products.get(i).getProduct_id());
+            storageMapper.updateAmountByProductId(
+                    form.products.get(i).getProduct_id(),
+                    (storageDto.getCurrentAmount() + form.products.get(i).getGivenAmount())
             );
 
-            product.getProductId();
+            if(!contributionMapper.checkIfExistsInSolicitation(form.products.get(i).getProduct_id())) {
+                continue;
+            }
 
-        });
+            contributionProductMapper.saveContributionProduct(
+                    contributionMapper.getLastContribution().id,
+                    form.products.get(i).getProduct_id(),
+                    form.products.get(i).getGivenAmount()
+            );
+        }
 
         return contributionMapper.getLastContribution();
 

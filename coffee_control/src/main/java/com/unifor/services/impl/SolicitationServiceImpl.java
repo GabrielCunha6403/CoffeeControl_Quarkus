@@ -31,13 +31,13 @@ public class SolicitationServiceImpl implements SolicitationService {
     }
 
     @Override
-    public SolicitationDto saveSolicitation(Long id, SolicitationPostForm form){
+    public SolicitationDto saveSolicitation(SolicitationPostForm form){
 
          solicitationMapper.saveSolicitation(
                 form.name,
                 LocalDate.now(),
                 true,
-                id,
+                form.user_id,
                 LocalDate.now().plusDays(LocalDate.now().lengthOfMonth())
         );
 
@@ -51,8 +51,14 @@ public class SolicitationServiceImpl implements SolicitationService {
         return solicitationMapper.getLastSolicitation();
     }
 
-    public void setEnable(){
+    public SolicitationDto setEnable(Long id){
+        solicitationMapper.setEnable(id);
+        return solicitationMapper.getSolicitation(id);
+    }
 
+    public SolicitationDto setDisable(Long id){
+        solicitationMapper.setDisable(id);
+        return solicitationMapper.getSolicitation(id);
     }
 
 }

@@ -10,7 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 public class ContributionPostForm {
-    public LocalDate data;
     public Long user_id;
     public Long solicitation_id;
     public List<ContributionProductForm> products;

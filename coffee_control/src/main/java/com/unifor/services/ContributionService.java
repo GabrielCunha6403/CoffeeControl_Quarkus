@@ -10,5 +10,5 @@ public interface ContributionService {
 
     ContributionDto getSpecificContribution(Long id);
 
-    ContributionDto saveContribution(ContributionPostForm form, Long id);
+    ContributionDto saveContribution(ContributionPostForm form);
 }

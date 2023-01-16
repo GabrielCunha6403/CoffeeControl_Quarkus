@@ -36,7 +36,7 @@ public interface SolicitationMapper {
             "#{date}, " +
             "#{enabled}, " +
             "#{user_id}, " +
-            "#{expiration}")
+            "#{expiration})")
     Integer saveSolicitation(
             @Param("name") String solicitation_name,
             @Param("date") LocalDate date,
@@ -61,4 +61,10 @@ public interface SolicitationMapper {
 
     @Select("SELECT * FROM solicitations WHERE id=(SELECT max(id) FROM solicitations)")
     SolicitationDto getLastSolicitation();
+
+    @Update("UPDATE solicitations SET enabled = true WHERE id = #{id}")
+    SolicitationDto setEnable(Long id);
+
+    @Update("UPDATE solicitations SET enabled = false WHERE id = #{id}")
+    SolicitationDto setDisable(Long id);
 }
