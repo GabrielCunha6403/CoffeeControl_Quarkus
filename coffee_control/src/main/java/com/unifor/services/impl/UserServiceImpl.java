@@ -1,5 +1,6 @@
 package com.unifor.services.impl;
 
+import com.unifor.dtos.UserDetailDto;
 import com.unifor.dtos.UserDto;
 import com.unifor.forms.ContributionPostForm;
 import com.unifor.forms.UserPostForm;
@@ -36,10 +37,14 @@ public class UserServiceImpl implements UserService {
         return userMapper.getUser(id);
     }
 
-    public User register(UserPostForm form){
+    public List<UserDetailDto> getUsersDetail(){
+        return userMapper.getUsersDetail();
+    }
+
+    public UserDto register(UserPostForm form){
         Profile profile = profileMapper.getProfile(form.getProfile_id());
         userMapper.saveUser(form.getName(), form.getRegistration(), form.getPassword(), profile.getId());
-        return new User(form.getName(), form.getRegistration(), form.getPassword(), profileMapper.getProfile(form.getProfile_id()));
+        return userMapper.getLastUser();
     }
 
     public void newContribution(Long id, ContributionPostForm form){

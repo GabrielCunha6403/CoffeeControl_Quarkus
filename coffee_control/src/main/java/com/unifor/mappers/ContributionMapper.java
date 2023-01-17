@@ -18,8 +18,8 @@ public interface ContributionMapper {
     @Select("SELECT * FROM contributions WHERE id = #{id}")
     ContributionDto getContribution(Long id);
 
-    @Insert("INSERT INTO contributions (id, contribution_date, user_id, solicitation_id) VALUES (DEFAULT, #{date}, #{user_id}, #{solicitation_id}")
-    ContributionDto saveContribution(@Param("date") LocalDate date, @Param("user_id") Long user_id, @Param("solicitation_id") Long solicitation_id);
+    @Insert("INSERT INTO contributions (id, contribution_date, user_id, solicitation_id) VALUES (DEFAULT, #{date}, #{user_id}, #{solicitation_id})")
+    Integer saveContribution(@Param("date") LocalDate date, @Param("user_id") Long user_id, @Param("solicitation_id") Long solicitation_id);
 
     @Delete("DELETE FROM contributions WHERE id = #{id}")
     Integer deleteContribution(Long id);

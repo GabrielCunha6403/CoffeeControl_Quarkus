@@ -1,7 +1,6 @@
 package com.unifor.services.impl;
 
 import com.unifor.dtos.ContributionDto;
-import com.unifor.dtos.ProductDto;
 import com.unifor.dtos.StorageDto;
 import com.unifor.forms.ContributionPostForm;
 import com.unifor.mappers.*;
@@ -21,9 +20,6 @@ public class ContributionServiceImpl implements ContributionService {
     StorageMapper storageMapper;
 
     @Inject
-    ProductMapper productMapper;
-
-    @Inject
     ContributionProductMapper contributionProductMapper;
 
     public List<ContributionDto> list(){
@@ -38,18 +34,22 @@ public class ContributionServiceImpl implements ContributionService {
     @Override
     public ContributionDto saveContribution(ContributionPostForm form) {
 
+//        System.out.println(form.solicitation_id);
+//        System.out.println(form.user_id);
+//        System.out.println(form.products);
+
         contributionMapper.saveContribution(LocalDate.now(), form.user_id, form.solicitation_id);
         for (int i = 0; i < form.products.size(); i++){
 
             StorageDto storageDto = storageMapper.getStorageByProductId(form.products.get(i).getProduct_id());
+
             storageMapper.updateAmountByProductId(
                     form.products.get(i).getProduct_id(),
                     (storageDto.getCurrentAmount() + form.products.get(i).getGivenAmount())
             );
 
-            if(!contributionMapper.checkIfExistsInSolicitation(form.products.get(i).getProduct_id())) {
+            if(!contributionMapper.checkIfExistsInSolicitation(form.products.get(i).getProduct_id()))
                 continue;
-            }
 
             contributionProductMapper.saveContributionProduct(
                     contributionMapper.getLastContribution().id,

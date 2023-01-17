@@ -1,5 +1,6 @@
 package com.unifor.resources;
 
+import com.unifor.dtos.UserDetailDto;
 import com.unifor.dtos.UserDto;
 import com.unifor.forms.ContributionPostForm;
 import com.unifor.forms.UserPostForm;
@@ -30,9 +31,15 @@ public class UserResource {
         return userService.getSpecificUser(id);
     }
 
+    @GET
+    @Path("/detail")
+    public List<UserDetailDto> getUsersDetail(){
+        return userService.getUsersDetail();
+    }
+
     @POST
     @Transactional
-    public User saveUser(UserPostForm form){
+    public UserDto saveUser(UserPostForm form){
         return userService.register(form);
     }
 
